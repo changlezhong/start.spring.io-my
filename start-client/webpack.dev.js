@@ -11,6 +11,10 @@ const config = {
   mode: 'development',
   devtool: 'inline-source-map',
   devServer: {
+    port: 3000,
+    proxy: {
+      '/': 'http://localhost:8080'
+    },
     static: path.resolve(__dirname, 'public'),
     historyApiFallback: true,
     compress: true,
@@ -19,19 +23,19 @@ const config = {
       if (!devServer) {
         throw new Error('webpack-dev-server is not defined')
       }
-      devServer.app.get('/metadata/client', function (req, res) {
-        setTimeout(() => {
-          res.json(mock)
-        }, 800)
-      })
-      devServer.app.get('/starter.zip', function (req, res) {
-        fs.readFile(path.resolve('./dev/starter.mock.zip'), (err, data) => {
-          if (err) return sendError(err, res)
-          setTimeout(() => {
-            res.send(data)
-          }, 800)
-        })
-      })
+      // devServer.app.get('/metadata/client', function (req, res) {
+      //   setTimeout(() => {
+      //     res.json(mock)
+      //   }, 800)
+      // })
+      // devServer.app.get('/starter.zip', function (req, res) {
+      //   fs.readFile(path.resolve('./dev/starter.mock.zip'), (err, data) => {
+      //     if (err) return sendError(err, res)
+      //     setTimeout(() => {
+      //       res.send(data)
+      //     }, 800)
+      //   })
+      // })
     },
   },
 }
